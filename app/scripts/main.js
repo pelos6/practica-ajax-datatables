@@ -310,7 +310,7 @@ $(document).ready(function() {
         modal: true,
         buttons: {
             "Crear un doctor": addUser,
-            Cancel: function() {
+            Cancelar: function() {
                 dialog.dialog("close");
             }
         },
@@ -319,13 +319,15 @@ $(document).ready(function() {
             allFields.removeClass("ui-state-error");
         }
     });
-    $("#create-user").button().on("click", function() {
+    $("#crear-doctor").button().on("click", function() {
+        console.log('en el click del boton crear-doctor');
         dialog.dialog("open");
     });
 
     function addUser() {
         var valid = true;
-        allFields.removeClass("ui-state-error");
+      /* validaciones interesantes para luego
+       allFields.removeClass("ui-state-error");
 
         valid = valid && checkLength(name, "username", 3, 16);
         valid = valid && checkLength(email, "email", 6, 80);
@@ -333,14 +335,48 @@ $(document).ready(function() {
 
         valid = valid && checkRegexp(name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter.");
         valid = valid && checkRegexp(email, emailRegex, "eg. ui@jquery.com");
-        valid = valid && checkRegexp(password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9");
+        valid = valid && checkRegexp(password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9");*/
 
         if (valid) {
-            $("#users tbody").append("<tr>" +
+            console.log ('es valido');
+        var idClinica = $("#idClinica").val();
+        var nombreDoctor = $("#nombreDoctor").val();
+        var numeroColegiado = $("#numeroColegiado").val();
+        console.log ('los valores '+ idClinica + ' '+ nombreDoctor + ' '+ numeroColegiado);
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: "php/crear_doctor.php",
+            async: false,
+            //estos son los datos que queremos actualizar, en json:
+            data: {
+                idClinica: idClinica,
+                nombreDoctor: nombreDoctor,
+                numeroColegiado: numeroColegiado  
+            },
+            error: function(xhr, status, error) {
+                //mostraríamos alguna ventana de alerta con el error
+                console.log('el error ' + error);
+                alert(error);
+            },
+            success: function(data) {
+                //obtenemos el mensaje del servidor, es un array!!!
+                //var mensaje = (data["mensaje"]) //o data[0], en función del tipo de array!!
+                //actualizamos datatables:
+                var $mitabla = $("#miTabla").dataTable({
+                    bRetrieve: true
+                });
+                $mitabla.fnDraw();
+            },
+            complete: {
+                //si queremos hacer algo al terminar la petición ajax
+            }
+        });
+/*            $("#users tbody").append("<tr>" +
                 "<td>" + name.val() + "</td>" +
                 "<td>" + email.val() + "</td>" +
                 "<td>" + password.val() + "</td>" +
-                "</tr>");
+                "</tr>");*/
             dialog.dialog("close");
         }
         return valid;
