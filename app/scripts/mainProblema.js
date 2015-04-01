@@ -100,11 +100,31 @@ $('#crearDoctor').validate({
 
 $(document).ready(function() {
     // cargando la tabla con dataTable
-    var miTabla = $('#miTabla').DataTable({
+    var miTabla = $('#miTabla').dataTable({
         'processing': true,
         'serverSide': true,
-        //'ajax': '../app/php/cargar_vclinicas_mejor.php',
+        /* "bProcessing": true,
+         "bServerSide": true,*/
         'ajax': '../app/php/cargar_doctores_clinicas.php',
+        //'ajax': 'php/mto_doctor.php',
+        //"sServerMethod": "POST",
+        // intento de pasar parámetros a la select de cargar tablas y poner todo el php en un solo fichero .
+        /*"fnServerParams": function(aoData) {
+            aoData.push({
+                "name": "accion",
+                "value": 'cargarTabla'
+            });
+        },*/
+        //"sAjaxSource": "php/mto_doctor.php",
+        // "sAjaxSource": "php/cargar_doctores_clinicas.php",
+        // le pasamos parametros al php
+        /*"fnServerParams": function(aoData) {
+    aoData.push({
+        "name": "accion",
+        "value": "cargarTabla"
+    });
+},
+*/
         'language': {
             'sProcessing': 'Procesando...',
             'sLengthMenu': 'Mostrar _MENU_ registros',
@@ -140,14 +160,14 @@ $(document).ready(function() {
             /*añadimos las clases editarbtn y borrarbtn para procesar los eventos click de los botones. No lo hacemos mediante id ya que habrá más de un
             botón de edición o borrado*/
             'render': function(data) {
-                return '<a href="#modal-editar" class="btn btn-primary editarbtn" data-toggle="modal"  data-backdrop="static" >Editar</a>';
+                return '<a href="#modal-editar" class="btn btn-primary editarbtn" data-toggle="modal" >Editar</a>';
             }
         }, {
             'data': 'idDoctor',
             /*añadimos las clases editarbtn y borrarbtn para procesar los eventos click de los botones. No lo hacemos mediante id ya que habrá más de un
             botón de edición o borrado*/
             'render': function(data) {
-                return '<a href="#modal-borrar" class="btn btn-warning borrarbtn" data-toggle="modal"  data-backdrop="static" >Borrar</a>';
+                return '<a href="#modal-borrar" class="btn btn-warning borrarbtn" data-toggle="modal" >Borrar</a>';
                 // return '<button id=' + data + ' class="btn btn-warning borrarbtn " >Borrar</button>';
             }
         }]
@@ -183,8 +203,8 @@ $(document).ready(function() {
     // como los botones se crean con datatables no estan al inicio. 
     // por eso se referencian a traves de #tabla y con on
     $('#tabla').on('click', '.editarbtn', function() {
-        doctor = $(this).attr('idDoctor');
-        console.log("en borrar doctor " + doctor);
+         doctor = $(this).attr('idDoctor');
+        console.log("en borrar doctor "+ doctor);
         var nRow = $(this).parents('tr')[0];
         var aData = miTabla.row(nRow).data();
         $('#idDoctorEditar').val(aData.idDoctor);
@@ -250,17 +270,19 @@ $(document).ready(function() {
             }
         });
     });
-/*    $('#tabla tbody').on('click', 'tr', function() {
-        console.log(miTabla.row(this).data());
-    });*/
+$('#tabla tbody').on( 'click', 'tr', function () {
+    console.log( miTabla.row( this ).data() );
+} );
     // --------BORRAR DOCTOR ------
     // lo que pasa al usar el botón borrar para cada doctor 
     $('#tabla').on('click', '.borrarbtn', function() {
+        doctor = $(this).attr('idDoctor');
+        console.log("en borrar doctor "+ doctor);
         var nRow = $(this).parents('tr')[0];
+         console.log("en borrar doctor " + nRow);
         var aData = miTabla.row(nRow).data();
         $('#idDoctorBorrar').val(aData.idDoctor);
         $('#nombreBorrar').val(aData.nombreDoctor);
-        $('#modal-borrar p').html("¿Seguro que quiere borrar el doctor " + aData.nombreDoctor + "?");
         console.log('en el boton-borrar-doctor ' + aData.idDoctor + ' ' + aData.nombreDoctor);
 
     });
