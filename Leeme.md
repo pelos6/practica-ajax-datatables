@@ -6,3 +6,4 @@ es un ejercicio mio sobre uno de datatables.
 Atención la base de datos esta en el bitnami 5.4
 
 Poner cargaTabla en mto_doctor.php 
+Al volver al formulario de editar se quedan los errores anteriores.
