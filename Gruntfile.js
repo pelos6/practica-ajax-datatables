@@ -164,8 +164,9 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         ignorePath: /^\/|\.\.\//,
-        src: ['<%= config.app %>/index.html'],
-        exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']
+        src: ['<%= config.app %>/index.html']
+        //, no se por que c... lo excluye si yo lo uso !!!
+       // exclude: ['bower_components/bootstrap/dist/js/bootstrap.js']
       }
     },
 
@@ -290,7 +291,9 @@ module.exports = function (grunt) {
             '*.{ico,png,txt}',
             'images/{,*/}*.webp',
             '{,*/}*.html',
-            'styles/fonts/{,*/}*.*'
+            'styles/fonts/{,*/}*.*',
+            'php/*.*',
+            'images/*.*'
           ]
         }, {
           src: 'node_modules/apache-server-configs/dist/.htaccess',

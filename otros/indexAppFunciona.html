@@ -10,9 +10,9 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="../bower_components/datatables/media/css/jquery.dataTables.css" />
     <link rel="stylesheet" href="../bower_components/growl/stylesheets/jquery.growl.css" />
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -139,6 +139,12 @@
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                             <h4 class="modal-title">Borrar Doctor</h4>
                         </div>
+                        <!-- <div class="form-group">
+                            <label for="nombreBorrar" class="col-sm-4 control-label">Nombre:</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" readonly id="nombreBorrar">
+                            </div>
+                        </div>-->
                         <div class="modal-body">
                             <p>¿Seguro que quieres borrar el doctor? </p>
                         </div>
@@ -161,13 +167,16 @@
             <script src="../bower_components/datatables/media/js/jquery.dataTables.js"></script>
             <script src="../bower_components/growl/javascripts/jquery.growl.js"></script>
             <script src="../bower_components/jquery-validate/dist/jquery.validate.js"></script>
-            <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
             <!-- endbower -->
             <!-- endbuild -->
             <!-- build:js(.) scripts/plugins.js -->
             <!-- endbuild -->
             <!-- build:js({app,.tmp}) scripts/main.js -->
+            <!--<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script> 
+            <script src="scripts/jquery-ui.js"></script>-->
             <script src="scripts/main.js"></script>
+            <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>-->
+            <script src="scripts/bootstrap.min.js"></script>
             <!-- endbuild -->
         </body>
 
