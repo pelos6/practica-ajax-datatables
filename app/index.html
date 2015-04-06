@@ -10,9 +10,9 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="../bower_components/datatables/media/css/jquery.dataTables.css" />
-    <link rel="stylesheet" href="../bower_components/growl/stylesheets/jquery.growl.css" />
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="bower_components/growl/stylesheets/jquery.growl.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -55,13 +55,13 @@
             <!-- Modal CREAR HTML -->
             <div id="modal-crear" class="modal fade">
                 <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Datos del Doctor</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form-horizontal" novalidate id="crearDoctor">
+                    <form class="form-horizontal" novalidate id="crearDoctor">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Datos del Doctor</h4>
+                            </div>
+                            <div class="modal-body">
                                 <div class="form-group">
                                     <label for="nombreCrear" class="col-sm-4 control-label">Nombre:</label>
                                     <div class="col-sm-8">
@@ -81,26 +81,26 @@
                                         </select>
                                     </div>
                                 </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <!-- <button id="botonGuardarCrearDoctor" type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button> -->
+                                <input type="submit" id="botonGuardarCrearDoctor" value="Guardar" data-toggle="modal" class="btn btn-primary" />
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <!-- <button id="botonGuardarCrearDoctor" type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button> -->
-                            <input type="submit" id="botonGuardarCrearDoctor" value="Guardar" data-toggle="modal" class="btn btn-primary" />
-                        </div>
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
             <!-- Modal EDITAR HTML -->
             <div id="modal-editar" class="modal fade">
                 <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Datos del Doctor</h4>
-                        </div>
-                        <div class="modal-body">
-                            <form class="form-horizontal" novalidate id="editarDoctor">
+                    <form class="form-horizontal" novalidate id="editarDoctor">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">Datos del Doctor</h4>
+                            </div>
+                            <div class="modal-body">
                                 <div class="form-group">
                                     <label for="nombreEditar" class="col-sm-4 control-label">Nombre:</label>
                                     <div class="col-sm-8">
@@ -121,14 +121,14 @@
                                     </div>
                                 </div>
                                 <input type="hidden" class="form-control" name="idDoctorEditar" id="idDoctorEditar">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="botonCancelarEditarDoctor" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                <!--   <button id="botonGuardarEditarDoctor" type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button> -->
+                                <input type="submit" id="botonGuardarEditarDoctor" value="Guardar" data-toggle="modal" class="btn btn-primary" />
+                            </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" id="botonCancelarEditarDoctor" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <!--   <button id="botonGuardarEditarDoctor" type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button> -->
-                            <input type="submit" id="botonGuardarEditarDoctor" value="Guardar" data-toggle="modal" class="btn btn-primary" />
-                        </div>
-                        </form>
-                    </div>
+                    </form>
                 </div>
             </div>
             <!-- Modal BORRAR HTML -->
@@ -157,11 +157,11 @@
             <!--     -->
             <!-- build:js(.) scripts/vendor.js -->
             <!-- bower:js -->
-            <script src="../bower_components/jquery/dist/jquery.js"></script>
-            <script src="../bower_components/datatables/media/js/jquery.dataTables.js"></script>
-            <script src="../bower_components/growl/javascripts/jquery.growl.js"></script>
-            <script src="../bower_components/jquery-validate/dist/jquery.validate.js"></script>
-            <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="bower_components/jquery/dist/jquery.js"></script>
+            <script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
+            <script src="bower_components/growl/javascripts/jquery.growl.js"></script>
+            <script src="bower_components/jquery-validate/dist/jquery.validate.js"></script>
+            <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
             <!-- endbower -->
             <!-- endbuild -->
             <!-- build:js(.) scripts/plugins.js -->
