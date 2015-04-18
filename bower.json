@@ -5,6 +5,7 @@
     "datatables": "~1.10.5",
     "growl": "~1.2.5",
     "jquery-validate": "~1.13.1",
-    "bootstrap": "~3.3.4"
+    "bootstrap": "~3.3.4",
+    "datatables-tabletools": "~2.2.4"
   }
 }

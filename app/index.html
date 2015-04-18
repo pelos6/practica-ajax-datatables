@@ -10,9 +10,10 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css" />
-    <link rel="stylesheet" href="bower_components/growl/stylesheets/jquery.growl.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../bower_components/datatables/media/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="../bower_components/growl/stylesheets/jquery.growl.css" />
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../bower_components/datatables-tabletools/css/dataTables.tableTools.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -24,12 +25,13 @@
     <div class="container-fluid">
         <div class="page-header">
             <!-- data-target la relación con el div modal que abre o cierra  -->
-            <!-- data-backdrop a static para que no se pueda hacer nada fuera de la pantalla que aparece... manias ...  -->
+            <!-- data-backdrop a static para que no se pueda hacer nada fuera de la pantalla que aparece... manias mias  -->
             <button id="boton-crear-doctor" data-target="#modal-crear" class="btn btn-success" data-toggle="modal" data-backdrop="static">Nuevo Doctor</button>
         </div>
         <div id="tabla" class="row">
+            <div class="botones"></div>
             <div class="col-md-12">
-                <table id="miTabla" class="table">
+                <table id="miTabla" class=" display hover cell-border" cellspacing="0" width="100%">
                     <thead>
                         <th>Doctor</th>
                         <th>Nº Colegiado</th>
@@ -40,7 +42,7 @@
                     <tbody>
                     </tbody>
                     <tfoot>
-                        <th>Doctor</th>
+                       <th>Doctor</th>
                         <th>Nº Colegiado</th>
                         <th>Clinica</th>
                         <th>Editar</th>
@@ -84,7 +86,6 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                <!-- <button id="botonGuardarCrearDoctor" type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button> -->
                                 <input type="submit" id="botonGuardarCrearDoctor" value="Guardar" data-toggle="modal" class="btn btn-primary" />
                             </div>
                         </div>
@@ -124,7 +125,6 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" id="botonCancelarEditarDoctor" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                <!--   <button id="botonGuardarEditarDoctor" type="button" class="btn btn-primary" data-dismiss="modal">Guardar</button> -->
                                 <input type="submit" id="botonGuardarEditarDoctor" value="Guardar" data-toggle="modal" class="btn btn-primary" />
                             </div>
                         </div>
@@ -157,11 +157,12 @@
             <!--     -->
             <!-- build:js(.) scripts/vendor.js -->
             <!-- bower:js -->
-            <script src="bower_components/jquery/dist/jquery.js"></script>
-            <script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
-            <script src="bower_components/growl/javascripts/jquery.growl.js"></script>
-            <script src="bower_components/jquery-validate/dist/jquery.validate.js"></script>
-            <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="../bower_components/jquery/dist/jquery.js"></script>
+            <script src="../bower_components/datatables/media/js/jquery.dataTables.js"></script>
+            <script src="../bower_components/growl/javascripts/jquery.growl.js"></script>
+            <script src="../bower_components/jquery-validate/dist/jquery.validate.js"></script>
+            <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+            <script src="../bower_components/datatables-tabletools/js/dataTables.tableTools.js"></script>
             <!-- endbower -->
             <!-- endbuild -->
             <!-- build:js(.) scripts/plugins.js -->

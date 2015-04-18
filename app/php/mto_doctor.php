@@ -33,18 +33,6 @@ error_log(" DEBUG: la acción " . $_POST['accion']);
  */
 // filtra la entrada permitiendo ñ y acentos ...
 $accion = filter_input(INPUT_POST, "accion", FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_AMP);
-/*if ($accion != 'cargarClinicas') { // en este caso no hacen falta parametros
-    if ($accion != 'crearDoctor') { // solo en ese caso es necesario y viene valor
-        $idDoctor = filter_input(INPUT_POST, "idDoctor", FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_AMP);
-        error_log(" DEBUG: la acción " . $accion . " el idDoctor " . $idDoctor);
-    }
-    if ($accion != 'borrarDoctor') { // solo en ese caso es necesario y viene valor
-        $clinicas        = $_POST['clinicas']; //filter_input(INPUT_POST, "clinicas", FILTER_SANITIZE_STRING,FILTER_FLAG_ENCODE_AMP);
-        $nombre          = filter_input(INPUT_POST, "nombre", FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_AMP);
-        $numeroColegiado = filter_input(INPUT_POST, "numeroColegiado", FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_AMP);
-        error_log(" DEBUG: la acción " . $accion . " el nombre " . $nombre . " el numero " . $numeroColegiado);
-    }
-}*/
 
 switch ($accion) {
     case 'cargarTabla':
@@ -80,14 +68,13 @@ switch ($accion) {
         $sql_details = array(
             'user' => $gaSql['user'],
             'pass' => $gaSql['password'],
-            //'db'   => 'datatables',
             'db' => $gaSql['db'] ,
             'host' => $gaSql['server']
         );
         require('ssp.class.php');
         
         echo json_encode(
-        // SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns )
+         // SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns )
             SSP::simple($_POST, $sql_details, $table, $primaryKey, $columns));
         
        /* $mensaje = "Carga correcta de la tabla";
@@ -101,7 +88,7 @@ switch ($accion) {
         $clinicas        = $_POST['clinicas'];
         // en la select meto el auto incremental para idDoctor
         $query = "INSERT INTO doctores (id_doctor, nombre, numcolegiado) ";
-        $query = $query . "select max(id_doctor) + 1 , '" . $nombre . "','" . $numeroColegiado . "' from doctores ";
+        $query = $query . "select max(id_doctor) + 1 , upper('" . $nombre . "'),'" . $numeroColegiado . "' from doctores ";
         error_log("DEBUG: la query primera " . $query);
         
         /*En función del resultado correcto o no, mostraremos el mensaje que corresponda*/
@@ -116,7 +103,7 @@ switch ($accion) {
             $mensaje = "Creación correcta";
             $estado  = 0;
         }
-        /*Es necesario meter también la o las clinicas (al menos una por restricción)*/
+        /*Es necesario meter también la o las clinicas (al menos una, por restricción)*/
         foreach ($clinicas as $key => $value) {
             $query = "INSERT INTO clinica_doctor ( id_doctor , numdoctor ,id_clinica ) ";
             $query = $query . "select max(id_doctor)  , '" . $numeroColegiado . "', '" . $value . "' from doctores ";
@@ -137,7 +124,7 @@ switch ($accion) {
         $clinicas        = $_POST['clinicas'];
         $idDoctor = filter_input(INPUT_POST, "idDoctor", FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_AMP);
         /* Consulta UPDATE */
-        $query = "UPDATE doctores SET nombre = '" . $nombre . "', numcolegiado = '" . $numeroColegiado . "'  WHERE id_doctor = '" . $idDoctor . "' ";
+        $query = "UPDATE doctores SET nombre = upper('" . $nombre . "'), numcolegiado = '" . $numeroColegiado . "'  WHERE id_doctor = '" . $idDoctor . "' ";
         error_log("DEBUG: la query de update " . $query);
         
         /*En función del resultado correcto o no, mostraremos el mensaje que corresponda*/
@@ -152,7 +139,7 @@ switch ($accion) {
             $mensaje = "Actualización correcta";
             $estado  = 0;
         }
-        /*********/
+
         /* Primero borramos las clinicas que tenia el doctor ....
         Consulta DELETE primero de las clinicas del doctor*/
         $query = "DELETE FROM clinica_doctor WHERE id_doctor = '" . $idDoctor . "' ";
@@ -165,11 +152,11 @@ switch ($accion) {
             error_log("El ERROR de la consulta 1 borrado de clinicas de doctor antes del insert" . $mensaje);
             $estado = mysql_errno();
         } else {
-            /* ahora insertamos las clinicar que vienen nuevas ... mas simple que mirar que clinica esta o deja de estar  ;)*/
+            /* ... ahora insertamos las clinicar que vienen nuevas ... mas simple que mirar que clinica esta o deja de estar  ;)*/
             /*Es necesario meter también la o las clinicas (al menos una por restricción)*/
             foreach ($clinicas as $key => $value) {
                 $query = "INSERT INTO clinica_doctor ( id_doctor , numdoctor ,id_clinica ) ";
-                $query = $query . " values (" . $idDoctor . " , " . $numeroColegiado . " , " . $value . " )";
+                $query = $query . " values ('" . $idDoctor . "' , '" . $numeroColegiado . "' , '" . $value . "' )";
                 error_log("DEBUG: la query de la clinica insertada editar " . $query);
                 $query_res = mysql_query($query);
                 if (!$query_res) {
@@ -184,7 +171,7 @@ switch ($accion) {
         break;
     case 'borrarDoctor':
         $idDoctor = filter_input(INPUT_POST, "idDoctor", FILTER_SANITIZE_STRING, FILTER_FLAG_ENCODE_AMP);
-        /* Consulta DELETE primero de las clinicas del doctor*/
+        /* Consulta DELETE primero de las clinicas del doctor, prefiero ocuparme de la integridad referencial yo mismo.*/
         $query = "DELETE FROM clinica_doctor WHERE id_doctor = '" . $idDoctor . "' ";
         error_log("DEBUG: la query de delete 1 " . $query);
         /*En función del resultado correcto o no, mostraremos el mensaje que corresponda*/
@@ -194,10 +181,7 @@ switch ($accion) {
             $mensaje = 'Error en la consulta 1 de borrado de clinicas de doctor : ' . mysql_error() . "\n";
             error_log("El ERROR de la consulta 1 " . $mensaje);
             $estado = mysql_errno();
-        } else {
-            /* $mensaje = "Borrado correcto de las clinicas del doctor";
-            $estado = 0;*/
-            //}  
+        } else { 
             /* Consulta DELETE del doctor una vez borrado las clinicas*/
             $query = "DELETE FROM doctores WHERE id_doctor = '" . $idDoctor . "' ";
             error_log("DEBUG: la query de delete 2 " . $query);
@@ -251,9 +235,9 @@ switch ($accion) {
             while ($fila = mysql_fetch_assoc($query_res)) {
                 /* la query para ver si el doctor tiene esa clinica */
                 $query = "SELECT count(*) FROM clinica_doctor cd where cd.id_doctor = '" . $idDoctor . "'  and cd.id_clinica = '" . $fila['id_clinica'] . "' ";
-                error_log("DEBUG: la query de la  de comprobación  clinicas " . $query);
+                //error_log("DEBUG: la query de la  de comprobación  clinicas " . $query);
                 $query_res1 = mysql_query($query);
-                error_log ("DEBUG: ".mysql_result($query_res1,0));
+                //error_log ("DEBUG: ".mysql_result($query_res1,0));
                 if (mysql_result($query_res1,0) == 0 ){
                     echo '<option id="' . $fila['id_clinica'] . '" value="' . $fila['id_clinica'] . '" >' . $fila['nombre'] . '</option>';
                 } else {
