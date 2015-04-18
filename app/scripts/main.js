@@ -221,7 +221,8 @@ $(document).ready(function() {
         */
         // "sDom": '<"top"i>rt<"bottom"flp><"clear">',
         // "sDom": 'Tlfrtip',
-        "sDom": 'T<"clear">OSlfrtip',
+        //"sDom": 'T<"clear">OSlfrtip',
+        dom: 'T<"clear">lfrtip',
         // "sDom": 'T<"H"lfr>t<"F"ip>',
         //"sDom": '<"H"lTfr>t<"F"ip>',
         //  "sDom": 'T<"clear">Clfrtip',

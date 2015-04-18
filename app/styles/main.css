@@ -33,4 +33,7 @@ body {
   -webkit-transform-origin: bottom center;
   text-transform: uppercase;
 }
+div.DTTT_container{
+  float:none;
+}
 /* fin firma circular*/
